@@ -53,17 +53,6 @@ class firewall::linux::redhat (
     }
   }
 
-  service { $service_name:
-    ensure    => $ensure,
-    enable    => $enable,
-    hasstatus => true,
-  }
-  service { $service_name_v6:
-    ensure    => $ensure,
-    enable    => $enable,
-    hasstatus => true,
-  }
-
   file { "/etc/sysconfig/${service_name}":
     ensure => present,
     owner  => 'root',
@@ -75,6 +64,17 @@ class firewall::linux::redhat (
     owner  => 'root',
     group  => 'root',
     mode   => '0600',
+  }
+
+  service { $service_name:
+    ensure    => $ensure,
+    enable    => $enable,
+    hasstatus => true,
+  }
+  service { $service_name_v6:
+    ensure    => $ensure,
+    enable    => $enable,
+    hasstatus => true,
   }
 
   # Before puppet 4, the autobefore on the firewall type does not work - therefore
